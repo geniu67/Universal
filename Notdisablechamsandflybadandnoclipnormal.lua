@@ -15,7 +15,7 @@ trollLabel.BorderSizePixel = 2
 trollLabel.Parent = trollGui
 
 for i = 5, 1, -1 do
-    trollLabel.Text = "ВЫ ОТЪЕБАНЫ: " .. tostring(i)
+    trollLabel.Text = "ВЫ БУДЕТЕ ОТЪЕБАНЫ ЧЕРЕЗ: " .. tostring(i)
     task.wait(1)
 end
 
