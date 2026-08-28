@@ -14,14 +14,14 @@ trollLabel.Font = Enum.Font.SourceSansBold
 trollLabel.BorderSizePixel = 2
 trollLabel.Parent = trollGui
 
-for i = 10, 1, -1 do
-    trollLabel.Text = "ВЫ БУДЕТЕ ЗАБАНЕНЫ ЧЕРЕЗ: " .. tostring(i)
+for i = 5, 1, -1 do
+    trollLabel.Text = "ВЫ ОТЪЕБАНЫ: " .. tostring(i)
     task.wait(1)
 end
 
 trollLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
-trollLabel.Text = "ХАХА, ЗАТРОЛЛЕН! Загрузка хаба... 😉"
-task.wait(2)
+trollLabel.Text = "ХАХА, ОТЪЕБАН!ЗАЗРУЗКА ЗОВХУЯ"
+task.wait(5)
 trollGui:Destroy()
 
 -- ==========================================
@@ -41,7 +41,7 @@ mainFrame.Parent = mainGui
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0, 40)
 titleLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-titleLabel.Text = "UNIVERSAL HUB v1.5"
+titleLabel.Text = "ZOVHUY V1.0"
 titleLabel.TextColor3 = Color3.fromRGB(0, 255, 128)
 titleLabel.TextSize = 18
 titleLabel.Font = Enum.Font.SourceSansBold
@@ -67,7 +67,7 @@ local speedButton = Instance.new("TextButton")
 speedButton.Size = UDim2.new(0, 210, 0, 35)
 speedButton.Position = UDim2.new(0, 20, 0, 55)
 speedButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-speedButton.Text = "Спидхак (100)"
+speedButton.Text = "СПИДХАЧИК (36)"
 speedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 speedButton.TextSize = 15
 speedButton.Parent = mainFrame
@@ -128,7 +128,7 @@ local player = game:GetService("Players").LocalPlayer
 local targetSpeed = 16
 
 speedButton.MouseButton1Click:Connect(function()
-    targetSpeed = 100
+    targetSpeed = 36
     if player.Character and player.Character:FindFirstChild("Humanoid") then player.Character.Humanoid.WalkSpeed = 100 end
 end)
 
