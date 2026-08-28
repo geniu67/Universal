@@ -1,0 +1,199 @@
+ 
+-- ==========================================
+-- БЛОК 1: смехуятинка
+-- ==========================================
+local trollGui = Instance.new("ScreenGui")
+trollGui.Parent = game:GetService("CoreGui")
+
+local trollLabel = Instance.new("TextLabel")
+trollLabel.Size = UDim2.new(0, 450, 0, 100)
+trollLabel.Position = UDim2.new(0.5, -225, 0.4, 0)
+trollLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+trollLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+trollLabel.TextSize = 28
+trollLabel.Font = Enum.Font.SourceSansBold
+trollLabel.BorderSizePixel = 2
+trollLabel.Parent = trollGui
+
+for i = 5, 1, -1 do
+    trollLabel.Text = "ТЕБЯ ОТЪЕБУТ ЧЕРЕЗ: " .. tostring(i)
+    task.wait(1)
+end
+
+trollLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
+trollLabel.Text = "ХАХА, ДАБЛ Ю! Загрузка зовхуя"
+task.wait(5)
+trollGui:Destroy()
+
+-- ==========================================
+-- БЛОК 2: СОЗДАНИЕ КРУТИГО МЭНУ
+-- ==========================================
+local mainGui = Instance.new("ScreenGui")
+mainGui.Parent = game:GetService("CoreGui")
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 250, 0, 260) -- Увеличили высоту до 260 под 3 кнопки
+mainFrame.Position = UDim2.new(0.05, 0, 0.3, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 2
+mainFrame.Active = true
+mainFrame.Parent = mainGui
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 40)
+titleLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+titleLabel.Text = "ZOVHYU"
+titleLabel.TextColor3 = Color3.fromRGB(0, 255, 128)
+titleLabel.TextSize = 18
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.Parent = mainFrame
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 35, 0, 35)
+closeButton.Position = UDim2.new(1, -38, 0, 2)
+closeButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextSize = 18
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.Parent = mainFrame
+
+closeButton.MouseButton1Click:Connect(function()
+    mainGui:Destroy()
+end)
+
+-- Кнопка 1:
+local speedButton = Instance.new("TextButton")
+speedButton.Size = UDim2.new(0, 210, 0, 40)
+speedButton.Position = UDim2.new(0, 20, 0, 60)
+speedButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+speedButton.Text = "ВКЛЮЧИТЬ СПИДХАЧИК (36)"
+speedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedButton.TextSize = 16
+speedButton.Font = Enum.Font.SourceSans
+speedButton.Parent = mainFrame
+
+-- Кнопка 2: СБРОС СПИДХАЧИКА
+local resetPriceButton = Instance.new("TextButton")
+resetPriceButton.Size = UDim2.new(0, 210, 0, 40)
+resetPriceButton.Position = UDim2.new(0, 20, 0, 110)
+resetPriceButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+resetPriceButton.Text = "ОБЫЧНЫЙ СПИД :(( (16)"
+resetPriceButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+resetPriceButton.TextSize = 16
+resetPriceButton.Font = Enum.Font.SourceSans
+resetPriceButton.Parent = mainFrame
+
+-- КНОПКА 3: ВКЛЮЧЕНИЕ / ВЫКЛЮЧЕНИЕ ЧЕПСОВ
+local chamsButton = Instance.new("TextButton")
+chamsButton.Size = UDim2.new(0, 210, 0, 40)
+chamsButton.Position = UDim2.new(0, 20, 0, 160)
+chamsButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+chamsButton.Text = "ЧЕПСЫ: ВЫКЛ"
+chamsButton.TextColor3 = Color3.fromRGB(255, 80, 80) -- Красный текст, пока выключено
+chamsButton.TextSize = 16
+chamsButton.Font = Enum.Font.SourceSansBold
+chamsButton.Parent = mainFrame
+
+-- ==========================================
+-- БЛОК 3: СПИДХАЧИК
+-- ==========================================
+local targetSpeed = 16
+
+speedButton.MouseButton1Click:Connect(function()
+    targetSpeed = 36
+    local char = game:GetService("Players").LocalPlayer.Character
+    if char and char:FindFirstChild("Humanoid") then char.Humanoid.WalkSpeed = 36 end
+end)
+
+resetPriceButton.MouseButton1Click:Connect(function()
+    targetSpeed = 16
+    local char = game:GetService("Players").LocalPlayer.Character
+    if char and char:FindFirstChild("Humanoid") then char.Humanoid.WalkSpeed = 16 end
+end)
+
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(newCharacter)
+    local humanoid = newCharacter:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = targetSpeed
+end)
+
+-- ==========================================
+-- БЛОК 4: ЧЕПСЫ ЛОГИКА БРОТЬИ
+-- ==========================================
+local chamsEnabled = false -- Изначально чамсы выключены
+
+-- Внутренняя функция создания подсветки
+local function applyChams(character)
+    if not chamsEnabled then return end -- Если чит выключен кнопкой, ничего не делаем
+    if character == game:GetService("Players").LocalPlayer.Character then return end
+    if character:FindFirstChild("ZOVChams") then return end
+
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "ZOVChams"
+    highlight.FillColor = Color3.fromRGB(255, 0, 0)
+    highlight.FillTransparency = 0.5
+    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    highlight.OutlineTransparency = 0
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    highlight.Parent = character
+end
+
+-- Функция ПОЛНОГО УДАЛЕНИЯ всех чамсов с карты
+local function removeChams()
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+        if player.Character then
+            local highlight = player.Character:FindFirstChild("ZOVChams")
+            if highlight then
+                highlight:Destroy() -- Удаляем подсветку через её имя
+            end
+        end
+    end
+end
+
+-- Обработчик клика по кнопке Чамсов
+chamsButton.MouseButton1Click:Connect(function()
+    chamsEnabled = not chamsEnabled -- Меняем true на false (или наоборот)
+
+    if chamsEnabled then
+        -- Если ВКЛЮЧИЛИ: меняем дизайн кнопки и подсвечиваем текущих игроков
+        chamsButton.Text = "ЧЕПСЫ: ВКЛ"
+        chamsButton.TextColor3 = Color3.fromRGB(80, 255, 80) -- Зеленый текст
+        
+        for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+            if player.Character then applyChams(player.Character) end
+        end
+    else
+        -- Если ВЫКЛЮЧИЛИ: возвращаем дизайн кнопки и стираем чамсы
+        chamsButton.Text = "ЧЕПСЫ: ВЫКЛ"
+        chamsButton.TextColor3 = Color3.fromRGB(255, 80, 80) -- Красный текст
+        removeChams()
+    end
+end)
+
+-- Авто-подсветка при респавне или заходе новых игроков (сработает только если chamsEnabled == true)
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(applyChams)
+end)
+for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+    player.CharacterAdded:Connect(applyChams)
+end
+
+-- ==========================================
+-- ПЕРЕТАСКИВАНИЕ ЦЕБУЛЯ
+-- ==========================================
+local UIS = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+local function update(input)
+    local delta = input.Position - dragStart
+    mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+mainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true dragStart = input.Position startPos = mainFrame.Position
+        input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
+    end
+end)
+mainFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then dragInput = input end
+end)
+UIS.InputChanged:Connect(function(input) if input == dragInput and dragging then update(input) end end)
